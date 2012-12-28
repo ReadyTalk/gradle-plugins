@@ -1,7 +1,5 @@
 apply plugin: 'groovy' 
 
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 repositories {
   mavenCentral()
 }
@@ -12,7 +10,10 @@ dependencies {
 }
 
 test.testLogging {
-    exceptionFormat "full"
-    //lifecycle.events = [TestLogEvent.FAILED]
-    showStandardStreams = true
+  exceptionFormat "full"
+  showStandardStreams = true
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '1.3'
 }
