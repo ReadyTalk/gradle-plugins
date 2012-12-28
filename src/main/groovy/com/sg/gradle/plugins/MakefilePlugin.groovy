@@ -3,7 +3,7 @@ package com.sg.gradle.plugins
 import org.gradle.api.Project
 import org.gradle.api.Plugin
 
-import com.sg.gradle.tasks.CompareMakefileTask
+import com.sg.gradle.extensions.MakefileExtension
 
 class MakefilePlugin implements Plugin<Project> {
 
@@ -11,13 +11,12 @@ class MakefilePlugin implements Plugin<Project> {
 
   void apply(Project project) {
     this.project = project
+
+    addMakefileExtension()
   }
 
-  void addMakefileComparisonTask() {
-    project.tasks.add(name: 'compareMakes', type: CompareMakefileTask) {
-      oldMakefile = project.file('makefile')
-      newMakefile = project.file('newmakefile.mk')
-    }
+  void addMakefileExtension() {
+    project.extensions.create("makefile", MakefileExtension, project)
   }
 
 }
