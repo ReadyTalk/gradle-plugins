@@ -1,16 +1,17 @@
+package com.sg.maketools
+
 import spock.lang.*
 
 class MakefileTest extends Specification {
 
   def "makefile print variable output to be parsed correctly from a string"() {
     given:
-    def makefile = new Makefile()
     def string = '../include/test.mk:3: converter-tool-sources=src/main/cpp/main.cpp ($(src)/main.cpp)'
-    makefile.parse(string)
+    def map = new Makefile().parseVariables(string)
 
     expect:
-    makefile.variables[key][0] == value
-    makefile.variables[key][1] == vardef
+    map[key][0] == value
+    map[key][1] == vardef
 
     where:
     key                       | value                       | vardef
@@ -19,7 +20,6 @@ class MakefileTest extends Specification {
 
   def "variable output to be parsed correctly from a file"() {
     given:
-    def makefile = new Makefile()
     String file = '''../include/test.mk:3: converter-tool-sources=src/main/cpp/main.cpp ($(src)/main.cpp)
 ../include/test.mk:3: cpp-objects= ($(foreach x,$(1),$(patsubst $(2)/%.cpp,$(3)/%.o,$(x))))
 ../include/test.mk:3: cxx=g++ -m64 ($(build-cxx) $(mflag))
@@ -36,11 +36,11 @@ class MakefileTest extends Specification {
 ../include/test.mk:3: platform=linux ($(bootimage-platform))
 ../include/test.mk:3: pointer-size=8 (8)
 ../include/test.mk:3: process=compile (compile)'''
-    makefile.parse(file)
+    def map = new Makefile().parseVariables(file)
 
     expect:
-    makefile.variables[key][0] == value
-    makefile.variables[key][1] == vardef
+    map[key][0] == value
+    map[key][1] == vardef
 
     where:
     key                       | value                       | vardef

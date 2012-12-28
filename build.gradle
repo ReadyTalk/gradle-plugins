@@ -8,11 +8,15 @@ repositories {
 
 dependencies {
   groovy "org.codehaus.groovy:groovy-all:1.8.6"
+
   testCompile "org.spockframework:spock-core:0.6-groovy-1.8"
+
+  compile "commons-logging:commons-logging:1.1.1"
+  compile gradleApi()
 }
 
 test.testLogging {
     exceptionFormat "full"
     //lifecycle.events = [TestLogEvent.FAILED]
-    showStandardStreams = true
+    //showStandardStreams = true
 }
