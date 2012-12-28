@@ -45,12 +45,12 @@ class MakefileTest extends Specification {
     where:
     key                       | value                       | vardef
     'converter-tool-sources'  |  'src/main/cpp/main.cpp'    | '$(src)/main.cpp'
-    'cpp-objects'             |  null                         | '$(foreach x,$(1),$(patsubst $(2)/%.cpp,$(3)/%.o,$(x)))'
+    'cpp-objects'             |  null                       | '$(foreach x,$(1),$(patsubst $(2)/%.cpp,$(3)/%.o,$(x)))'
     'cxx'                     |  'g++ -m64'                 | '$(build-cxx) $(mflag)'
     'db'                      |  'gdb --args'               | 'gdb --args'
     'dlltool'                 |  'dlltool'                  | 'dlltool'
     'jar'                     |  '"/bin/jar"'               | '"$(JAVA_HOME)/bin/jar"'
-    'java-classes'            |  null                         | '$(foreach x,$(1),$(patsubst $(2)/%.java,$(3)/%.class,$(x)))'
+    'java-classes'            |  null                       | '$(foreach x,$(1),$(patsubst $(2)/%.java,$(3)/%.class,$(x)))'
     'javac'                   |  '"/bin/javac"'             | '"$(JAVA_HOME)/bin/javac"'
     'javah'                   |  '"/bin/javah"'             | '"$(JAVA_HOME)/bin/javah"'
     'mflag'                   |  '-m64'                     | '-m64'
