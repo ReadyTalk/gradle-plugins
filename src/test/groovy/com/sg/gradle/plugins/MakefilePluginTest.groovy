@@ -21,7 +21,7 @@ class MakefilePluginTest extends Specification {
     file << '''
 .PHONY: clean
 clean:
-	@echo \'CLEANED!\'
+  @echo \'CLEANED!\'
 '''
 
     return file
