@@ -21,7 +21,6 @@ class ExecMakefileTask extends Exec {
   @TaskAction
   void run() {
     assert makefile
-
     args "-f ${makefile.path}"
   }
 
