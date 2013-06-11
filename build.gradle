@@ -1,7 +1,7 @@
-group = "com.readytalk.plugins"
-version = "0.0.1-SNAPSHOT"
-
 allprojects {
+  group = "com.readytalk.plugins"
+  version = "0.0.1-SNAPSHOT"
+
   repositories {
     mavenCentral()
   }
