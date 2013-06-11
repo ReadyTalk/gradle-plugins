@@ -1,0 +1,3 @@
+class MakeTarget {
+  String name
+}
