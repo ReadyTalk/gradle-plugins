@@ -1,1 +1,2 @@
-include 'wrapper-creator'
+include 'wrapper-creator',
+        'make'

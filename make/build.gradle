@@ -1,37 +1,17 @@
 apply plugin: 'groovy' 
-apply plugin: 'idea'
-
-group = 'com.sg.gradle'
-version = '0.1.0-SNAPSHOT'
-
-repositories {
-  mavenCentral()
-}
 
 dependencies {
-  groovy "org.codehaus.groovy:groovy-all:1.8.6"
+  compile (
+    gradleApi(),
+    localGroovy(),
+    "commons-logging:commons-logging:1.1.1",
+  )
 
-  testCompile "org.spockframework:spock-core:0.6-groovy-1.8"
-
-  compile "commons-logging:commons-logging:1.1.1"
-  compile gradleApi()
+  testCompile (
+    "org.spockframework:spock-core:0.6-groovy-1.8"
+  )
 }
 
 test.testLogging {
-    exceptionFormat "full"
-    //lifecycle.events = [TestLogEvent.FAILED]
-    //showStandardStreams = true
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.4'
-}
-
-uploadArchives {
-  repositories {
-    ivy {
-      url "${System.getProperty('user.home')}/.ivy2/local"
-      layout "maven"
-    }
-  }
+  exceptionFormat "full"
 }

@@ -65,8 +65,8 @@ subprojects {
           repoKey = isSnapshot ? 'oss-snapshot-local' : 'oss-release-local'
           gradle.taskGraph.whenReady { taskGraph ->
             if (taskGraph.hasTask(task)) {
-              username = "test"
-              password = "test"
+              username = bintrayUser
+              password = bintrayKey
             }
           }
         }
