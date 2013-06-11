@@ -1,10 +1,102 @@
-allprojects {
-  group = "com.readytalk.plugins"
-  version = "0.0.1-SNAPSHOT"
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url 'http://repo.jfrog.org/artifactory/gradle-plugins' }
+  }
 
+  dependencies {
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:2.1.0"
+  }
+}
+
+allprojects {
+  apply plugin: 'artifactory'
+
+  group = "com.sethgoings"
+  version = "0.1.0-SNAPSHOT"
+  ext {
+    isSnapshot = version.contains('SNAPSHOT')
+  }
   repositories {
     mavenCentral()
   }
+
+  artifactory {
+    contextUrl = 'http://oss.jfrog.org'
+  }
+}
+
+evaluationDependsOnChildren()
+subprojects {
+  apply plugin: "maven"
+  apply plugin: "signing"
+  apply from: "${rootProject.projectDir}/gradle/pom.gradle"
+
+  configurations.signatures.artifacts.all {
+    extension = toSignArtifact.extension + "." + extension
+  }
+
+  signing {
+    if (!isSnapshot) {
+      sign configurations.archives
+    }
+  }
+
+  install {
+    repositories {
+      mavenDeployer {
+        repository(url: "file://${rootProject.buildDir.absolutePath}/localrepo")
+      }
+    }
+
+    repositories["mavenInstaller"].beforeDeployment { deployment ->
+      if (!isSnapshot) {
+        artifacts {
+          signatures signing.signPom(deployment)
+        }
+      }
+    }
+  }
+
+  artifactoryPublish { task ->
+    rootProject.artifactory {
+      publish {
+        repository {
+          repoKey = isSnapshot ? 'oss-snapshot-local' : 'oss-release-local'
+          gradle.taskGraph.whenReady { taskGraph ->
+            if (taskGraph.hasTask(task)) {
+              username = "test"
+              password = "test"
+            }
+          }
+        }
+      }
+    }
+  }
+
+  modifyPom {
+    project {
+      description "A collection of useful Gradle plugins"
+      url "https://github.com/sgoings/gradle-plugins"
+      licenses {
+        license {
+          name "The MIT License (MIT)"
+          url "http://opensource.org/licenses/MIT"
+          distribution "repo"
+        }
+      }
+      scm {
+        connection "scm:git@github.com:sgoings/gradle-plugins.git"
+        developerConnection "scm:git@github.com:sgoings/gradle-plugins.git"
+        url "https://github.com/sgoings/gradle-plugins"
+      }
+    }
+  }
+
+}
+
+artifactoryPublish {
+  skip true
 }
 
 task wrapper(type: Wrapper) {
