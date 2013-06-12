@@ -12,7 +12,7 @@ buildscript {
 allprojects {
   apply plugin: 'artifactory'
 
-  group = "com.sethgoings"
+  group = "com.sethgoings.gradle-plugins"
   version = "0.1.0-SNAPSHOT"
   ext {
     isSnapshot = version.contains('SNAPSHOT')
