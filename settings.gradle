@@ -1,2 +1,3 @@
-include 'wrapper-creator',
-        'make'
+include 'tasks',
+        'make',
+        'wrapper-creator'
