@@ -29,8 +29,25 @@ allprojects {
 }
 
 subprojects {
+  apply plugin: 'groovy' 
   apply plugin: "maven"
   apply plugin: "signing"
+
+  dependencies {
+    compile (
+      gradleApi(),
+      localGroovy()
+    )
+
+    testCompile (
+      'org.spockframework:spock-core:0.6-groovy-1.8'
+    )
+  }
+
+  test.testLogging {
+    exceptionFormat "full"
+    //showStandardStreams true
+  }
 
   artifactoryPublish { task ->
     rootProject.artifactory {
