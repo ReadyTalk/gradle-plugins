@@ -26,11 +26,12 @@ class PackageWrapper extends Zip {
       }
     }
 
-    into('init.d') {
+    into("gradle-${downloadGradle.gradleVersion}/init.d") {
       from {
         initScriptsDirectory
       }
     }
+
   }
 
   void setGradleOpts(String options) {
