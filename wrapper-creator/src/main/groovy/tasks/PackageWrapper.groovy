@@ -16,6 +16,9 @@ class PackageWrapper extends Zip {
   @InputFiles
   FileCollection stockWrapper
 
+  @Input
+  String gradleVersion
+
   PackageWrapper() {
     description = 'Add extra files to ReadyTalk Gradle distribution'
     classifier = 'bin'
@@ -26,7 +29,7 @@ class PackageWrapper extends Zip {
       }
     }
 
-    into("gradle-${project.wrapperCreator.gradleVersion}/init.d") {
+    into("gradle-${getGradleVersion()}/init.d") {
       from {
         initScriptsDirectory
       }

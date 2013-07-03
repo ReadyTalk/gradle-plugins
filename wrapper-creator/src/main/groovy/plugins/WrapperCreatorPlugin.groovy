@@ -32,6 +32,7 @@ class WrapperCreatorPlugin implements Plugin<Project> {
       dependsOn project.tasks.getByName(DOWNLOAD_GRADLE_TASK_NAME)
 
       initScriptsDirectory = project.file('src/main/gradle')
+      conventionMapping.gradleVersion = { project.extensions.getByName(WRAPPER_CREATOR_EXTENSION).gradleVersion }
       conventionMapping.stockWrapper = { project.zipTree(project.tasks.getByName(DOWNLOAD_GRADLE_TASK_NAME).destinationFile) }
       conventionMapping.baseName = { project.name }
     }
