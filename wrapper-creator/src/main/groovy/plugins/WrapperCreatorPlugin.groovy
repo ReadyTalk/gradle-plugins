@@ -22,7 +22,6 @@ class WrapperCreatorPlugin implements Plugin<Project> {
       // you want to conventionMap it so that way if it changes, you'll get updated on the change
       // See: http://forums.gradle.org/gradle/topics/custom_task_with_fields_assign_directly_or_via_conventionmapping
       conventionMapping.destinationDir = { project.file("${project.buildDir}/gradle-downloads") }
-      println project.extensions.getByName(WRAPPER_CREATOR_EXTENSION).gradleVersion
       conventionMapping.gradleVersion = { project.extensions.getByName(WRAPPER_CREATOR_EXTENSION).gradleVersion }
     }
   }

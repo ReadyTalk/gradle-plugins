@@ -47,7 +47,9 @@ subprojects {
 
   test.testLogging {
     exceptionFormat "full"
-    //showStandardStreams true
+    if(project.hasProperty('stdOut')) {
+      showStandardStreams true
+    }
   }
 
   artifactoryPublish { task ->

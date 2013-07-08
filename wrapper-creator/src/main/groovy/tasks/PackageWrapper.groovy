@@ -29,7 +29,9 @@ class PackageWrapper extends Zip {
       }
     }
 
-    into("gradle-${getGradleVersion()}/init.d") {
+    into {
+      "gradle-${getGradleVersion()}/init.d"
+    } {
       from {
         initScriptsDirectory
       }
