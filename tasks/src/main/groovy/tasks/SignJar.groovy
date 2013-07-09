@@ -8,25 +8,19 @@ import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.Optional
 
 class SignJar extends DefaultTask {
 
-  @Input
-  String baseName
-  @Input
-  String storePass
-  @Input
-  String keyPass
-  @Input
-  String alias
-  @Input
-  String keyStoreName
-  @InputFile
-  File keyStoreRepo
-  @InputFile
-  File unsignedJar
-  @OutputFile
-  File signedJar
+  @Input String baseName
+  @Input String storePass
+  @Input @Optional String keyPass
+  @Input String alias
+  @Input String keyStoreName
+  @InputFile File keyStoreRepo
+  @InputFile File unsignedJar
+
+  @OutputFile File signedJar
 
   File keyStore
 
