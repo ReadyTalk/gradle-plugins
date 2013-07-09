@@ -3,12 +3,11 @@ package tasks
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.api.tasks.*
 import org.gradle.api.file.FileCollection
-import org.gradle.api.InvalidUserDataException
 
 class PackageWrapper extends Zip {
 
   @Input @Optional
-  String gradleOpts
+  String jvmOpts
 
   @InputDirectory
   File initScriptsDirectory
@@ -39,8 +38,8 @@ class PackageWrapper extends Zip {
 
   }
 
-  void setGradleOpts(String options) {
-    gradleOpts = options
+  void setJvmOpts(String options) {
+    jvmOpts = options
     if(options) {
 
       into('') {
@@ -49,7 +48,7 @@ class PackageWrapper extends Zip {
           include  '**/bin/gradle'
           filter { line ->
             if (line =~ "DEFAULT_JVM_OPTS=") {
-              return "GRADLE_OPTS=\"${options} \$GRADLE_OPTS\"\nDEFAULT_JVM_OPTS="
+              return "DEFAULT_JVM_OPTS=\"${options}\""
             } else {
               return line
             }
@@ -60,7 +59,7 @@ class PackageWrapper extends Zip {
           include  '**/bin/gradle.bat'
           filter { line ->
             if (line =~ "set DEFAULT_JVM_OPTS=") {
-              return "set GRADLE_OPTS=${options} %GRADLE_OPTS%\nset DEFAULT_JVM_OPTS="
+              return "set DEFAULT_JVM_OPTS=${options}"
             } else {
               return line
             }
@@ -68,7 +67,5 @@ class PackageWrapper extends Zip {
         }
       }
     }
-
   }
-
 }
