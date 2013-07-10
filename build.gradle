@@ -1,7 +1,7 @@
 buildscript {
   repositories {
     mavenCentral()
-    maven { url 'http://repo.jfrog.org/artifactory/gradle-plugins' }
+    mavenRepo( name: 'jFrogPlugins', url: 'http://repo.jfrog.org/artifactory/gradle-plugins' )
   }
 
   dependencies {
@@ -13,10 +13,12 @@ allprojects {
   apply plugin: 'artifactory'
 
   group = "com.sethgoings.gradle-plugins"
-  version = "0.1.0-SNAPSHOT"
+  version = "0.2.0-SNAPSHOT"
+
   ext {
     isSnapshot = version.contains('SNAPSHOT')
   }
+
   repositories {
     mavenCentral()
   }
@@ -26,35 +28,27 @@ allprojects {
   }
 }
 
-evaluationDependsOnChildren()
 subprojects {
+  apply plugin: 'groovy' 
   apply plugin: "maven"
+  apply plugin: 'maven-publish'
   apply plugin: "signing"
-  apply from: "${rootProject.projectDir}/gradle/pom.gradle"
 
-  configurations.signatures.artifacts.all {
-    extension = toSignArtifact.extension + "." + extension
+  dependencies {
+    compile (
+      gradleApi(),
+      localGroovy()
+    )
+
+    testCompile (
+      'org.spockframework:spock-core:0.6-groovy-1.8'
+    )
   }
 
-  signing {
-    if (!isSnapshot) {
-      sign configurations.archives
-    }
-  }
-
-  install {
-    repositories {
-      mavenDeployer {
-        repository(url: "file://${rootProject.buildDir.absolutePath}/localrepo")
-      }
-    }
-
-    repositories["mavenInstaller"].beforeDeployment { deployment ->
-      if (!isSnapshot) {
-        artifacts {
-          signatures signing.signPom(deployment)
-        }
-      }
+  test.testLogging {
+    exceptionFormat "full"
+    if(project.hasProperty('stdOut')) {
+      showStandardStreams true
     }
   }
 
@@ -63,6 +57,8 @@ subprojects {
       publish {
         repository {
           repoKey = isSnapshot ? 'oss-snapshot-local' : 'oss-release-local'
+
+          // Need this to enable non deployment builds without credentials
           gradle.taskGraph.whenReady { taskGraph ->
             if (taskGraph.hasTask(task)) {
               username = bintrayUser
@@ -74,21 +70,10 @@ subprojects {
     }
   }
 
-  modifyPom {
-    project {
-      description "A collection of useful Gradle plugins"
-      url "https://github.com/sgoings/gradle-plugins"
-      licenses {
-        license {
-          name "The MIT License (MIT)"
-          url "http://opensource.org/licenses/MIT"
-          distribution "repo"
-        }
-      }
-      scm {
-        connection "scm:git@github.com:sgoings/gradle-plugins.git"
-        developerConnection "scm:git@github.com:sgoings/gradle-plugins.git"
-        url "https://github.com/sgoings/gradle-plugins"
+  publishing {
+    publications {
+      mavenJava(MavenPublication) {
+        from components.java
       }
     }
   }

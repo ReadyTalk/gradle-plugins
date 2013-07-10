@@ -13,15 +13,15 @@ class DownloadGradle extends DefaultTask {
 
   @TaskAction 
   doDownloadGradle() {
-    destinationFile.bytes = new URL(downloadUrl).bytes
+    destinationFile.bytes = new URL(getDownloadUrl()).bytes
   }
 
   String getDownloadUrl() {
-    "${gradleDownloadBase}/${getDownloadFileName()}"
+    "${getGradleDownloadBase()}/${getDownloadFileName()}"
   }
 
   String getDownloadFileName() {
-    "gradle-${gradleVersion}-bin.zip"
+    "gradle-${getGradleVersion()}-bin.zip"
   }
 
   // Set up this way to be able to handle updates to the underlying properties
