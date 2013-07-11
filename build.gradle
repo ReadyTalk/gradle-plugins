@@ -12,7 +12,7 @@ buildscript {
 allprojects {
   apply plugin: 'artifactory'
 
-  group = "com.readytalk"
+  group = "com.readytalk.gradle-plugins"
   version = "0.2.0-SNAPSHOT"
 
   ext {
