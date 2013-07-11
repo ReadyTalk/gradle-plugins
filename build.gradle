@@ -1,7 +1,7 @@
 buildscript {
   repositories {
     mavenCentral()
-    mavenRepo( name: 'jFrogPlugins', url: 'http://repo.jfrog.org/artifactory/gradle-plugins' )
+    mavenRepo( name: 'jFrogPlugins', url: 'http://dl.bintray.com/jfrog/jfrog-jars' )
   }
 
   dependencies {
@@ -12,7 +12,7 @@ buildscript {
 allprojects {
   apply plugin: 'artifactory'
 
-  group = "com.sethgoings.gradle-plugins"
+  group = "com.readytalk"
   version = "0.2.0-SNAPSHOT"
 
   ext {
