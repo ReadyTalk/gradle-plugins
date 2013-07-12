@@ -1,4 +1,4 @@
-gradle-com.readytalk.gradle.wrappercreator.plugins
+ReadyTalk's Gradle Plugins
 ==============
 
-[![Build Status](https://drone.io/github.com/ReadyTalk/gradle-com.readytalk.gradle.wrappercreator.plugins/status.png)](https://drone.io/github.com/ReadyTalk/gradle-com.readytalk.gradle.wrappercreator.plugins/latest)
+[![Build Status](https://drone.io/github.com/ReadyTalk/gradle-plugins/status.png)](https://drone.io/github.com/ReadyTalk/gradle-plugins/latest)
