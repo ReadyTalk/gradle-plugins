@@ -22,7 +22,10 @@ class JenkinsJobDslPlugin implements Plugin<Project> {
     }
 
     project.tasks.create(name: 'processDsl', type: ProcessJenkinsJobDsl) {
-      args "${project.projectDir}/src/main/jenkins/jobs/deploy.groovy"
+      project.files("${project.projectDir}/src/main/jenkins").each {
+        args it
+      }
+
       classpath project.configurations.compile
       setErrorOutput(new ByteArrayOutputStream())
       setStandardOutput(new ByteArrayOutputStream())
