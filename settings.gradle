@@ -1,3 +1,4 @@
 include 'tasks',
         'make',
-        'wrapper-creator'
+        'wrapper-creator',
+        'jenkins-job-dsl'
