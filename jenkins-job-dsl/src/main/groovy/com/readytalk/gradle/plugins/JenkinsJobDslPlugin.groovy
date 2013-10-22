@@ -11,10 +11,13 @@ import com.readytalk.gradle.tasks.ProcessJenkinsJobDsl
 class JenkinsJobDslPlugin implements Plugin<Project> {
 
   Project project
+  File jenkinsBuildDir
 
   void apply(Project project) {
 
     this.project = project
+
+    jenkinsBuildDir = project.file("${project.projectDir}/build/jenkins")
 
     project.plugins.apply('base')
 
@@ -40,11 +43,9 @@ class JenkinsJobDslPlugin implements Plugin<Project> {
       }
 
       classpath project.configurations.jenkinsCompile
-      setErrorOutput(new ByteArrayOutputStream())
-      setStandardOutput(new ByteArrayOutputStream())
 
       inputs.files classpath
-      outputs.dir project.buildDir
+      outputs.dir jenkinsBuildDir
     }
   }
 
