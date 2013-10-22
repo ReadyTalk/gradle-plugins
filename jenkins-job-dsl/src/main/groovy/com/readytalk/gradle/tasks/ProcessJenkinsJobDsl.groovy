@@ -16,8 +16,8 @@ class ProcessJenkinsJobDsl extends JavaExec {
     output = new ByteArrayOutputStream()
     errorOutput = new ByteArrayOutputStream()
 
-    setErrorOutput(output)
-    setStandardOutput(errorOutput)
+    //setErrorOutput(output)
+    //setStandardOutput(errorOutput)
   }
 
   void exec() {
