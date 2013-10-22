@@ -3,15 +3,17 @@ package com.readytalk.gradle.tasks
 import org.gradle.api.Project
 import org.gradle.api.tasks.JavaExec
 
-class ProcessJenkinsJobDsl extends JavaExec {
+import java.io.ByteArrayOutputStream
 
-  OutputStream output
-  OutputStream errorOutput
+class ProcessJenkinsJobDsl extends JavaExec {
 
   ProcessJenkinsJobDsl() {
     super()
     main = 'javaposse.jobdsl.Run'
     workingDir project.buildDir
+
+    setErrorOutput(new ByteArrayOutputStream())
+    setStandardOutput(new ByteArrayOutputStream())
   }
 
   void exec() {

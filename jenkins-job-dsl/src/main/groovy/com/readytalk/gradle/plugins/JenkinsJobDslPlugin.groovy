@@ -5,8 +5,6 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
 import org.gradle.api.file.FileTree
 
-import java.io.ByteArrayOutputStream
-
 import com.readytalk.gradle.tasks.ProcessJenkinsJobDsl
 
 class JenkinsJobDslPlugin implements Plugin<Project> {
