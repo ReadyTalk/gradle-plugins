@@ -20,7 +20,7 @@ class MakefileExtension {
     makefile.targets.collect { target ->
       String name = target.value.name
 
-      project.tasks.add(name: name, type: Exec) {
+      project.tasks.create(name: name, type: Exec) {
         executable 'make'
         args "-f", makefile.file, name
         group 'make'

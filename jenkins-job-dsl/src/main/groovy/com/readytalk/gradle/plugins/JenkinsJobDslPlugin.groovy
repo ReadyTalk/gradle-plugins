@@ -10,36 +10,67 @@ import com.readytalk.gradle.tasks.ProcessJenkinsJobDsl
 
 class JenkinsJobDslPlugin implements Plugin<Project> {
 
-  File buildDir
+  Project project
 
   void apply(Project project) {
-    buildDir = project.file("${project.projectDir}/build")
+
+    this.project = project
 
     project.plugins.apply('base')
 
-    project.configurations {
-      compile
-    }
+    addJenkinsConfiguration()
 
+    addProcessDslTask()
+
+    configureAssembleTask()
+    configureCheckTask()
+    configureBuildTask()
+  }
+
+  void addJenkinsConfiguration() {
+    project.configurations {
+      jenkinsCompile
+    }
+  }
+
+  void addProcessDslTask() {
     project.tasks.create(name: 'processDsl', type: ProcessJenkinsJobDsl) {
       project.files("${project.projectDir}/src/main/jenkins").each {
         args it
       }
 
-      classpath project.configurations.compile
+      classpath project.configurations.jenkinsCompile
       setErrorOutput(new ByteArrayOutputStream())
       setStandardOutput(new ByteArrayOutputStream())
 
       inputs.files classpath
-      outputs.dir buildDir
+      outputs.dir project.buildDir
     }
+  }
 
+  void configureAssembleTask() {
     project.tasks.assemble {
       dependsOn 'processDsl'
     }
+  }
 
-    project.tasks.create('build') {
+  void configureCheckTask() {
+    if(!project.tasks.findByName('check')) {
+      project.tasks.create('check')
+    }
+
+    project.tasks.check {
       dependsOn 'assemble'
+    }
+  }
+
+  void configureBuildTask() {
+    if(!project.tasks.findByName('build')) {
+      project.tasks.create('build')
+    }
+
+    project.tasks.build {
+      dependsOn 'check'
     }
   }
 

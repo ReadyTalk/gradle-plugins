@@ -1,11 +1,14 @@
 buildscript {
   repositories {
     mavenCentral()
-    mavenRepo( name: 'jFrogPlugins', url: 'http://dl.bintray.com/jfrog/jfrog-jars' )
+    maven {
+      name = 'jFrogPlugins'
+      url = 'http://dl.bintray.com/jfrog/jfrog-jars'
+    }
   }
 
   dependencies {
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:2.1.0"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:2.2.1"
   }
 }
 
@@ -85,5 +88,5 @@ artifactoryPublish {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.6'
+  gradleVersion = '1.8'
 }
