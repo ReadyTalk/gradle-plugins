@@ -15,6 +15,9 @@ buildscript {
 allprojects {
   apply plugin: 'artifactory'
 
+  group = "com.readytalk.gradle-plugins"
+  version = "0.3.2-SNAPSHOT"
+
   ext {
     isSnapshot = version.contains('SNAPSHOT')
   }
