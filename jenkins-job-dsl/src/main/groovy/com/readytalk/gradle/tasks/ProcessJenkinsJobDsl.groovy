@@ -9,8 +9,8 @@ class ProcessJenkinsJobDsl extends JavaExec {
 
   ProcessJenkinsJobDsl() {
     super()
-    main = 'javaposse.jobdsl.Run'
-    workingDir project.buildDir
+    setMain('javaposse.jobdsl.Run')
+    setWorkingDir(project.buildDir)
 
     setErrorOutput(new ByteArrayOutputStream())
     setStandardOutput(new ByteArrayOutputStream())

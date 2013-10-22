@@ -11,7 +11,12 @@ class JenkinsJobDslPluginTest extends Specification {
 
   def setupSpec() {
     project = ProjectBuilder.builder().build()
-    project.apply(plugin: 'jenkins-job-dsl')
+    project.with {
+      file('src/main/jenkins').mkdirs()
+      ext.sampleJob = file('src/main/jenkins/unit.groovy')
+      ext.sampleJob << 'job { name = "unit" }'
+      apply(plugin: 'jenkins-job-dsl')
+    }
   }
 
   def "has the base plugin applied"() { 
@@ -37,5 +42,10 @@ class JenkinsJobDslPluginTest extends Specification {
   def "has jenkins configurations"() {
     expect:
     project.configurations.jenkinsCompile
+  }
+
+  def "collects over job scripts"() {
+    expect:
+    project.tasks.getByName('processDsl').args.contains(project.ext.sampleJob.absolutePath)
   }
 }
