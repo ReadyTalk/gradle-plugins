@@ -3,6 +3,7 @@ package com.readytalk.gradle.plugins
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Delete
+import org.gradle.api.file.FileTree
 
 import java.io.ByteArrayOutputStream
 
