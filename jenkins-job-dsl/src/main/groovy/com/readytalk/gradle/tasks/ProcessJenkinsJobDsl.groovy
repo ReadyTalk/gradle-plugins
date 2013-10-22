@@ -12,12 +12,6 @@ class ProcessJenkinsJobDsl extends JavaExec {
     super()
     main = 'javaposse.jobdsl.Run'
     workingDir project.buildDir
-
-    output = new ByteArrayOutputStream()
-    errorOutput = new ByteArrayOutputStream()
-
-    //setErrorOutput(output)
-    //setStandardOutput(errorOutput)
   }
 
   void exec() {

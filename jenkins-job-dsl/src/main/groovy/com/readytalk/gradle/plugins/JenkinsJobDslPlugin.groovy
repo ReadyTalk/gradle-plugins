@@ -38,8 +38,12 @@ class JenkinsJobDslPlugin implements Plugin<Project> {
 
   void addProcessDslTask() {
     project.tasks.create(name: 'processDsl', type: ProcessJenkinsJobDsl) {
-      project.fileTree("${project.projectDir}/src/main/jenkins") {
+      FileTree tree = project.fileTree("${project.projectDir}/src/main/jenkins") {
         include '**/*.groovy'
+      }
+
+      tree.getFiles().each {
+        args it.getAbsolutePath()
       }
 
       classpath project.configurations.jenkinsCompile
