@@ -5,13 +5,13 @@ ReadyTalk's Gradle Plugins
 
 In all of the examples below, you need to connect to our public binary repo managed by JFrog:
 
-  buildscript {
-    repositories {
-      maven {
-        url = http://oss.jfrog.org/repo
+    buildscript {
+      repositories {
+        maven {
+          url = http://oss.jfrog.org/repo
+        }
       }
     }
-  }
 
 jenkins-job-dsl
 ---------------
@@ -19,15 +19,15 @@ This project leverages the [Jenkins Job DSL](https://github.com/jenkinsci/job-ds
 
 ### Getting Started
 
-  buildscript {
-    // Include repositories definition above
+    buildscript {
+      // Include repositories definition above
 
-    dependencies {
-      classpath 'com.readytalk.gradle-plugins:jenkins-job-dsl:<version>'
+      dependencies {
+        classpath 'com.readytalk.gradle-plugins:jenkins-job-dsl:<version>'
+      }
     }
-  }
 
-  apply plugin: 'jenkins-job-dsl'
+    apply plugin: 'jenkins-job-dsl'
 
 This gives you:
 - A Gradle project with the base plugin applied (gives you "assemble" and "clean")
@@ -49,17 +49,17 @@ This plugin provides a way to easily wrap a make-based project so that you can r
 
 ### Getting Started
 
-  buildscript {
-    // Include repositories definition above
+    buildscript {
+      // Include repositories definition above
 
-    dependencies {
-      classpath 'com.readytalk.gradle-plugins:make:<version>'
+      dependencies {
+        classpath 'com.readytalk.gradle-plugins:make:<version>'
+      }
     }
-  }
 
-  apply plugin: 'make'
+    apply plugin: 'make'
 
-  make.importBuild 'makefile'
+    make.importBuild 'makefile'
 
 ### Future Improvements
 - This project needs some love, as it may have been my first non-trivial Gradle plugin attempt
@@ -70,15 +70,15 @@ tasks
 
 A collection of miscellaneous tasks that we use inside of a few projects at ReadyTalk.
 
-  buildscript {
-    // Include repositories definition above
+    buildscript {
+      // Include repositories definition above
 
-    dependencies {
-      classpath 'com.readytalk.gradle-plugins:tasks:<version>'
+      dependencies {
+        classpath 'com.readytalk.gradle-plugins:tasks:<version>'
+      }
     }
-  }
 
-  import com.readytalk.gradle.tasks.SignJar // Gradle-ified version of Ant's SignJar task
+    import com.readytalk.gradle.tasks.SignJar // Gradle-ified version of Ant's SignJar task
 
 wrapper-creator
 ---------------
@@ -91,33 +91,33 @@ This project isn't our internal wrapper, but is the project that enables us to p
 
 #### Basic Setup
 
-  buildscript {
-    // Include repositories definition above
+    buildscript {
+      // Include repositories definition above
 
-    dependencies {
-      classpath 'com.readytalk.gradle-plugins:wrapper-creator:<version>'
+      dependencies {
+        classpath 'com.readytalk.gradle-plugins:wrapper-creator:<version>'
+      }
     }
-  }
 
-  apply plugin: 'wrapper-creator'
+    apply plugin: 'wrapper-creator'
 
-  wrapperCreator {
-    // extension to configure some global things, such as:
-    gradleVersion = "1.8"
-  }
+    wrapperCreator {
+      // extension to configure some global things, such as:
+      gradleVersion = "1.8"
+    }
 
-  // packageWrapper task by default injects any .gradle file in src/main/gradle into the Gradle zip's init.d directory
+    // packageWrapper task by default injects any .gradle file in src/main/gradle into the Gradle zip's init.d directory
 
 #### More Advanced Usage
 
-  // Optional
-  downloadGradle {
-    // downloads Gradle with version = wrapperCreator.gradleVersion
-  }
+    // Optional
+    downloadGradle {
+      // downloads Gradle with version = wrapperCreator.gradleVersion
+    }
 
-  packageWrapper {
-    // task that does takes a stock version of Gradle and injects your init scripts (located at src/main/gradle) and places them in the Gradle zip in the correct location
+    packageWrapper {
+      // task that does takes a stock version of Gradle and injects your init scripts (located at src/main/gradle) and places them in the Gradle zip in the correct location
 
-    // Additional Functionality
-    setJvmOpts(String)
-  }
+      // Additional Functionality
+      setJvmOpts(String)
+    }
