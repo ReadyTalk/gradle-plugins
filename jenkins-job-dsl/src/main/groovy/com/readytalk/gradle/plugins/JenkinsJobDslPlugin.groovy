@@ -47,7 +47,7 @@ class JenkinsJobDslPlugin implements Plugin<Project> {
 
       classpath project.configurations.jenkinsCompile
 
-      inputs.files classpath
+      inputs.files tree.getFiles()
       outputs.dir jenkinsBuildDir
     }
   }
