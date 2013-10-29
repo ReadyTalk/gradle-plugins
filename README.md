@@ -65,6 +65,56 @@ This plugin provides a way to easily wrap a make-based project so that you can r
 - This project needs some love, as it may have been my first non-trivial Gradle plugin attempt
 - Be able to namespace the make target imports (so if you had clean, build... in the Makefile), you could choose to have them imported into the Gradle build as "make.clean, make.build..."
 
+proto
+-----
+
+More extensible Protobuf support with Gradle!
+
+    buildscript {
+      dependencies {
+        classpath 'com.readytalk.gradle-plugins:proto:<version>'
+      }
+    }
+
+    dependencies {
+      proto (
+        group: 'com.readytalk.protobuf',
+        name: "protoc",
+        version: '2.5.0.2-SNAPSHOT',
+        configuration: 'compiler'
+      )
+
+      compile "com.google.protobuf:protobuf-java:2.5.0"
+    }
+
+    // apply plugin: 'proto-base'
+    // apply plugin: 'proto-java'
+    // apply plugin: 'proto-as3'
+
+### `proto-base` Plugin
+
+Adds the following items:
+
+- `proto` configuration
+- `proto` extension
+- `setupProtoc` task
+- `generateMainProtocol` `ProtoCompile` task which runs protoc: 
+- `packageProtoc` `Zip` task which zips up your .proto files
+
+### `proto-java` Plugin
+
+This plugin plays well with the `java` plugin from Gradle and ties into the opinionated Java build lifecycle. For example, the standard compileMainJava is configured by the `proto-java` plugin to add the `build/src/main/java` sourceset and compiles it along with your sources in `src/main/java`.
+
+### Assumptions
+- a protobuf compiler is declared in the `proto` configuration
+- the protobuf-java.jar has been added to the compile configuration so it available on your classpath during compilation
+- `generateMainProtocol` task compiles `src/main/proto/**/*.proto` files into .class files in `build/src/main/java`.
+
+### `proto-as3` Plugin
+
+This plugin plays well with the `gradlefx` plugin from GradleFX and enables you to generate .swc files from .proto files
+
+
 tasks
 -----
 

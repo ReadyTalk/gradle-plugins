@@ -15,9 +15,6 @@ buildscript {
 allprojects {
   apply plugin: 'artifactory'
 
-  group = "com.readytalk.gradle-plugins"
-  version = "0.3.1-SNAPSHOT"
-
   ext {
     isSnapshot = version.contains('SNAPSHOT')
   }
@@ -48,10 +45,12 @@ subprojects {
     )
   }
 
-  test.testLogging {
-    exceptionFormat "full"
-    if(project.hasProperty('stdOut')) {
-      showStandardStreams true
+  test {
+    testLogging {
+      exceptionFormat "full"
+      if(project.hasProperty('stdOut')) {
+        showStandardStreams true
+      }
     }
   }
 

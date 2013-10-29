@@ -8,22 +8,16 @@ import org.gradle.api.Task
 
 class JarSignTest extends Specification {
 
-  @Shared
-  Project project
-  @Shared
-  File defaultKeyStoreRepo
-  @Shared
-  File defaultKeyStore
-  @Shared
-  File defaultUnsignedJar
-
-  Task sign
+  @Shared Project project
+  @Shared File defaultKeyStoreRepo
+  @Shared File defaultKeyStore
+  @Shared File defaultUnsignedJar
+  @Shared Task sign
   String defaultBaseName = 'base name'
   String defaultStorePassword = 'store password'
   String defaultKeyPass = 'key password'
   String defaultAlias = 'alias'
   String defaultKeyStoreName = 'keyStoreFile'
-
 
   def setupSpec() {
     project = ProjectBuilder.builder().build()
