@@ -16,7 +16,7 @@ class MakefilePlugin implements Plugin<Project> {
   }
 
   void addMakefileExtension() {
-    project.extensions.create("makefile", MakefileExtension, project)
+    project.extensions.create("make", MakefileExtension, project)
   }
 
 }
