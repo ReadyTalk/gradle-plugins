@@ -37,7 +37,7 @@ clean:
     given:
     Project project = setupProject()
     File generatedMakefile = setupMakefile(project.projectDir)
-    project.makefile.importBuild(generatedMakefile.path)
+    project.make.importBuild(generatedMakefile.path)
 
     expect:
     project.tasks.'clean'
@@ -48,7 +48,7 @@ clean:
     Project project = setupProject()
     File generatedMakefile = setupMakefile(project.projectDir)
 
-    project.makefile.importBuild(generatedMakefile.path)
+    project.make.importBuild(generatedMakefile.path)
     project.tasks.'clean'.execute()
   }
 }
