@@ -31,6 +31,7 @@ message Msg {
       apply 'proto-java'
       apply 'proto-objc'
       apply 'proto-as3'
+      apply 'proto-messageids'
     }
 
     project.apply(from: 'loader.gradle')
@@ -46,6 +47,11 @@ message Msg {
       compile 'com.google.protobuf:protobuf-java:2.5.0'
     }
 
+    project.generateMainProtocol {
+      generatedJavaMessageIds = "${project.proto.protoGenSrcDir}/java/message-ids.properties"
+      generatedAs3MessageIds = "${project.proto.protoGenSrcDir}/as3/Protocol.as"
+    }
+
     when:
     project.tasks.setupProtoc.execute()
     project.tasks.generateMainProtocol.execute()
@@ -58,6 +64,8 @@ message Msg {
     fileExists("${mainSourceSet}/as3/Msg.as")
     fileExists("${mainSourceSet}/m/Sample.pb.h")
     fileExists("${mainSourceSet}/m/Sample.pb.m")
+    fileExists("${mainSourceSet}/java/message-ids.properties")
+    fileExists("${mainSourceSet}/as3/Protocol.as")
   }
 
 }

@@ -19,6 +19,11 @@ class ComboFeatureTest extends Specification {
     ProtoFeature objc = new ObjcProtoFeature (
       outputDir: new File('build/src/main/objc')
     )
+    ProtoFeature messageIds = new MessageIdsProtoFeature (
+      plugin: new File('plugin'),
+      idsIn: new File('src/main/proto'),
+      idsOut: new File('build/proto')
+    )
     ProtoFeature as3 = new As3ProtoFeature (
       outputDir: new File('build/src/main/as3')
     )
@@ -27,11 +32,12 @@ class ComboFeatureTest extends Specification {
     ProtoCompiler compiler = new DefaultProtoCompiler(baseDir)
     compiler.addFeature(java)
     compiler.addFeature(objc)
+    compiler.addFeature(messageIds)
     compiler.addFeature(as3)
     compiler.configure()
 
     then:
-    compiler.args.size() == 4 
+    compiler.args.size() == 6
 
   }
 }

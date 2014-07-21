@@ -17,6 +17,7 @@ class AllPluginTest extends Specification {
     project.plugins.with {
       apply(JavaProtoPlugin)
       apply(As3ProtoPlugin)
+      apply(MessageIdsProtoPlugin)
       apply(ObjcProtoPlugin)
     }
 
@@ -29,5 +30,6 @@ class AllPluginTest extends Specification {
     compiler.args.find { it =~ '--java_out' }
     compiler.args.find { it =~ '--objc_out' }
     compiler.args.find { it =~ '--as3_out' }
+    compiler.args.find { it =~ '--ids_out' }
   }
 }
