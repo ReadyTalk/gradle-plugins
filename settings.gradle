@@ -1,5 +1,4 @@
-include 'jenkins-job-dsl',
-        'make',
+include 'make',
         'proto',
         'tasks',
         'wrapper-creator'
