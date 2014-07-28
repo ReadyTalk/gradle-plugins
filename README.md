@@ -153,7 +153,7 @@ This project isn't our internal wrapper, but is the project that enables us to p
 
     wrapperCreator {
       // extension to configure some global things, such as:
-      gradleVersion = "1.8"
+      gradleVersion = "2.0"
     }
 
     // packageWrapper task by default injects any .gradle file in src/main/gradle into the Gradle zip's init.d directory

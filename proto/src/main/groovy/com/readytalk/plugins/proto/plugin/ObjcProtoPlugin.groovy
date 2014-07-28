@@ -34,6 +34,9 @@ class ObjcProtoPlugin extends BaseProtoPlugin {
       compression = Compression.GZIP
       from "${project.buildDir}/src/main/m"
 
+      from(project.buildDir) {
+        include "MessageTypeTranslation.*"
+      }
     }
   }
 

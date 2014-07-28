@@ -8,12 +8,12 @@ buildscript {
   }
 
   dependencies {
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:2.2.2"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.0.0"
   }
 }
 
 allprojects {
-  apply plugin: 'artifactory'
+  apply plugin: 'com.jfrog.artifactory-publish'
 
   ext {
     isSnapshot = version.contains('SNAPSHOT')
@@ -29,7 +29,7 @@ allprojects {
 }
 
 subprojects {
-  apply plugin: 'groovy' 
+  apply plugin: 'groovy'
   apply plugin: "maven"
   apply plugin: 'maven-publish'
   apply plugin: "signing"
@@ -40,9 +40,9 @@ subprojects {
       localGroovy()
     )
 
-    testCompile (
-      'org.spockframework:spock-core:0.6-groovy-1.8'
-    )
+    testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
+      exclude group:'org.codehaus.groovy'
+    }
   }
 
   test {
@@ -87,5 +87,5 @@ artifactoryPublish {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.9-rc-2'
+  gradleVersion = '2.0'
 }
