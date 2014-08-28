@@ -13,58 +13,6 @@ In all of the examples below, you need to connect to our public binary repo mana
       }
     }
 
-jenkins-job-dsl
----------------
-This project leverages the [Jenkins Job DSL](https://github.com/jenkinsci/job-dsl-plugin) project to enable the generation of Jenkins Jobs via a Groovy DSL. It expands upon the User Power move described as ["Generate a Job config.xml without having to fire up Jenkins"](https://github.com/jenkinsci/job-dsl-plugin/wiki/User-Power-Moves)
-
-### Getting Started
-
-    buildscript {
-      // Include repositories definition above
-
-      dependencies {
-        classpath 'com.readytalk.gradle-plugins:jenkins-job-dsl:<version>'
-      }
-    }
-
-    apply plugin: 'jenkins-job-dsl'
-
-This gives you:
-- A Gradle project with the base plugin applied (gives you "assemble" and "clean")
-- A "processDsl" task
--- converts all Jenkins Job Dsl Groovy files
--- classpath: use configuration "jenkinsCompile"
--- sourceSet: src/main/jenkins/**/*.groovy
--- buildDir: build/*.xml
-- Correct lifecycle functionality: processDsl -> assemble -> check -> build
-
-### Future Improvements
-- Configure/Connect to a Jenkins server to update jobs via a Gradle command
-- Merge some of this functionality into the jenkins-job-dsl repository (expand support in Jenkins plugin as well)
-- Be able to specify the groovy DSL versions of your Jenkins Jobs in a Gradle build.gradle file
-
-make
-----
-This plugin provides a way to easily wrap a make-based project so that you can run any make target from Gradle and leverage the premium dependency management and publication support of Gradle.
-
-### Getting Started
-
-    buildscript {
-      // Include repositories definition above
-
-      dependencies {
-        classpath 'com.readytalk.gradle-plugins:make:<version>'
-      }
-    }
-
-    apply plugin: 'make'
-
-    make.importBuild 'makefile'
-
-### Future Improvements
-- This project needs some love, as it may have been my first non-trivial Gradle plugin attempt
-- Be able to namespace the make target imports (so if you had clean, build... in the Makefile), you could choose to have them imported into the Gradle build as "make.clean, make.build..."
-
 proto
 -----
 
